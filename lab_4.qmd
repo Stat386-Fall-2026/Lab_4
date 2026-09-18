@@ -1,0 +1,256 @@
+---
+title: "STAT 386 Lab 4: Exploring Patterns with pandas"
+author: "Your Name"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: false
+execute:
+  echo: true
+  warning: true
+jupyter: python3
+---
+
+## Overview
+
+In Lab 3, you practiced individual pandas operations such as filtering,
+sorting, calculating summaries, and grouping data. In this lab, you will
+combine those operations to investigate patterns in General Conference talks.
+
+You will practice:
+
+- filtering with multiple conditions;
+- creating grouped summaries with `.agg()`;
+- comparing observations with their groups using `.transform()`;
+- creating variables from text;
+- comparing raw counts with rates; and
+- creating basic plots directly from pandas.
+
+The plots in this lab are exploratory. You will learn how to create more
+polished visualizations later in the course.
+
+## Setup
+
+The following code imports pandas and loads the data. Run it before beginning
+the lab.
+
+```{python}
+import pandas as pd
+
+talks = pd.read_csv("data/talks.csv")
+```
+
+# Part 1: Reintroduce the Data
+
+## 1. Check the expanded dataset
+
+Display the first few rows using only these columns:
+
+- `talk_name`
+- `speaker`
+- `conference`
+- `num_words`
+- `text`
+
+```{python}
+# Write your code here.
+```
+
+Determine the number of rows and columns, the earliest and latest years, and
+the number of talks with missing text.
+
+```{python}
+# Write your code here.
+```
+
+**Your answer:** What information does the `text` column add to the variables
+you used in Lab 3?
+
+::: {.callout-note}
+## About the data
+
+Each row represents one talk from an April or October General Conference. The
+`text` column contains the full transcript of the talk.
+:::
+
+# Part 2: Combine pandas Operations
+
+## 2. Filter using multiple conditions
+
+First, calculate the median value of `num_words` for the entire dataset.
+
+Then create a DataFrame named `selected_talks` containing talks that satisfy
+both of these conditions:
+
+- the talk was given from 2015 through 2020, inclusive; and
+- `num_words` is greater than the overall median.
+
+Keep only `talk_name`, `speaker`, `conference`, `year`, and `num_words`. Sort
+the result from the largest to the smallest word count.
+
+```{python}
+# Create selected_talks here.
+```
+
+**Your answer:** How many talks satisfy both conditions?
+
+## 3. Create a grouped summary
+
+Create a DataFrame named `year_summary` with one row per year and these
+variables:
+
+- `number_of_talks`;
+- `mean_words`;
+- `median_words`; and
+- `maximum_words`.
+
+Use `.groupby()` and `.agg()` to create all four summaries together. Sort the
+result by year.
+
+```{python}
+# Create year_summary here.
+```
+
+**Your answer:** Identify one interesting difference between two years in the
+summary. Support your observation with values from the table.
+
+## 4. Compare each talk with its conference
+
+Use `.groupby()` and `.transform()` to create a new column named
+`conference_mean_words`. It should contain the mean word count for the
+conference in which each talk was given.
+
+Then create `words_from_conference_mean`, calculated as the talk's word count
+minus its conference mean.
+
+```{python}
+# Create both variables here.
+```
+
+Display the three talks farthest above their conference mean and the three
+talks farthest below it. Show only the talk name, speaker, conference, word
+count, conference mean, and difference.
+
+```{python}
+# Write your code here.
+```
+
+**Your answer:** What do positive and negative values of
+`words_from_conference_mean` represent?
+
+::: {.callout-tip}
+## pandas reminders
+
+These general forms may help:
+
+```python
+df.groupby("group").agg(new_name=("column", "mean"))
+df.groupby("group")["column"].transform("mean")
+df["text"].fillna("").str.lower().str.count("phrase")
+```
+:::
+
+# Part 3: Create Variables from Text
+
+## 5. Count terms in each talk
+
+Create a lowercase version of the talk text named `text_lower`. Replace
+missing text with an empty string before converting the text to lowercase.
+
+Then create these variables:
+
+- `jesus_christ_count`, the number of times `jesus christ` appears; and
+- `covenant_count`, the number of times `covenant` appears.
+
+For now, use simple string counts rather than regular expressions.
+
+```{python}
+# Create text_lower and both count variables here.
+```
+
+Display the five talks with the largest `jesus_christ_count` values. Then
+determine how many talks have a count of zero for each of the two terms.
+
+```{python}
+# Write your code here.
+```
+
+**Your answer:** Compare how widely the two terms are used across the talks.
+What is one limitation of these simple text counts?
+
+## 6. Adjust for talk length
+
+Longer talks have more opportunities to contain any term. Create these two
+variables:
+
+- `jesus_christ_per_1000`, the number of `jesus christ` occurrences per 1,000
+  words; and
+- `covenant_per_1000`, the number of `covenant` occurrences per 1,000 words.
+
+```{python}
+# Create both rate variables here.
+```
+
+Display the five talks with the highest raw `jesus_christ_count` values and
+the five with the highest `jesus_christ_per_1000` values.
+
+```{python}
+# Create and display both results here.
+```
+
+**Your answer:** Are the same talks at the top of both lists? Explain why a raw
+count and a rate answer different questions.
+
+# Part 4: Create Exploratory Plots
+
+## 7. Examine the distribution of talk lengths
+
+Use pandas `.plot.hist()` to create a histogram of `num_words`. Add a useful
+title and label the horizontal axis.
+
+```{python}
+# Create your histogram here.
+```
+
+**Your answer:** Describe the center and shape of the distribution in two or
+three sentences.
+
+## 8. Plot term use over time
+
+Create a DataFrame named `yearly_term_rates` containing the mean values of
+`jesus_christ_per_1000` and `covenant_per_1000` for each year. Use pandas
+`.plot.line()` to plot both yearly means on the same axes. Include a useful
+title, axis labels, and legend.
+
+```{python}
+# Create the summary and plot here.
+```
+
+**Your answer:** Describe the broad patterns and one difference between the
+two lines. Remember that the graph does not explain why the patterns occurred.
+
+# Part 5: Short Independent Exploration
+
+## 9. Investigate one additional term
+
+Choose one word or short phrase that interests you. Create its raw count and
+its rate per 1,000 words. Then use either a grouped summary or a basic pandas
+plot to investigate how the term is used.
+
+Use only letters and spaces in your search term.
+
+### Your term and question
+
+Replace this sentence with your term and a question about it.
+
+### Your analysis
+
+```{python}
+# Write the code needed to answer your question.
+```
+
+### Your conclusion
+
+**Your answer:** Answer your question in two or three sentences. Include one
+limitation of your analysis.

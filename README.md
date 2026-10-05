@@ -75,10 +75,15 @@ git push
 
 Follow the submission directions provided in Canvas.
 
-## Generate the follow-up reflection issue
+## Work with the AI Collaborator
 
-Create a new Issue using the **Lab 4 Complete** Issue template if it is
-available.
+During this lab, you will interact with the course AI collaborator twice. Each interaction will create a Pull Request containing a proposed change to your repository.
+
+For each Pull Request, carefully review both the proposed code and the questions included in the Pull Request description. Do not assume that a proposed change should automatically be accepted.
+
+### First AI Collaborator Interaction
+
+Create a new Issue using the **Lab 4 Complete** Issue template if it is available.
 
 Use the following title:
 
@@ -86,16 +91,61 @@ Use the following title:
 Lab 4 complete
 ```
 
-The description can be empty. Post the Lab 4 processing command as a new
-comment:
+The Issue description can be empty.
+
+Post the first AI collaborator processing command as a new comment on the Issue:
 
 ```text
-@local-llm-user process config-dir: Lab_4/ in instructor-repo: Stat386-Fall-2026/Instructor_Repo
+@local-llm-user process config-dir: Lab_4/metadata_01.yml in instructor-repo: Stat386-Fall-2026/Instructor_Repo
 ```
 
-The command must be posted as a comment, not in the Issue description. Once
-processing is complete, answer the questions in the new review Issue created
-by the course collaborator.
+The command must be posted as a comment, not in the Issue description.
+
+Once the collaborator finishes processing your repository, it will create a Pull Request.
+
+1. Open the Pull Request created by the collaborator.
+2. Read the Pull Request description carefully.
+3. Review the proposed changes in the **Files changed** tab.
+4. Answer each question included in the Pull Request description.
+5. Post your answers as a comment on that Pull Request.
+6. Decide whether the proposed change should be included in your repository based on your review.
+
+If you merge the Pull Request, update your local repository before continuing:
+
+```bash
+git pull
+```
+
+Make sure you understand the changes that were added before continuing with the lab.
+
+### Second AI Collaborator Interaction
+
+After completing your review of the first Pull Request, return to the same Lab 4 completion Issue.
+
+Post the second AI collaborator processing command as a new comment:
+
+```text
+@local-llm-user process config-dir: Lab_4/metadata_02.yml in instructor-repo: Stat386-Fall-2026/Instructor_Repo
+```
+
+Once processing is complete, the collaborator will create a second Pull Request.
+
+1. Open the second Pull Request.
+2. Read the Pull Request description carefully.
+3. Review the proposed changes in the **Files changed** tab.
+4. Answer each question included in the Pull Request description.
+5. Post your answers as a comment on that Pull Request.
+6. Decide whether the proposed change should be included in your repository based on your review.
+
+Remember that code can run successfully without necessarily being an appropriate change to the analysis. Your goal is to evaluate the proposed change rather than automatically accept it.
+
+If you merge the second Pull Request, update your local repository again:
+
+```bash
+git pull
+```
+
+Complete both AI collaborator interactions and respond to the questions in both Pull Requests before finishing the lab.
 
 ## Before you finish
 
